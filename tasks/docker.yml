@@ -39,5 +39,11 @@
     groups: docker
     append: yes
 
+- name: Install Docker Compose using Pip.
+  ansible.builtin.pip:
+    name: docker-compose
+    state: present
+    executable: pip3
+
 - name: Reset connection
   meta: reset_connection
