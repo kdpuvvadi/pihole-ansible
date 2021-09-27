@@ -1,0 +1,27 @@
+---
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: '{{ hostname }}'
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: '{{ timezone }}'
+      WEBPASSWORD: '{{ password }}'
+      ServerIP: '{{ ansible_facts['default_ipv4']['address'] }}'
+    dns:
+      - 127.0.0.1
+      - 8.8.8.8
+    volumes:
+      - './etc-pihole/:/etc/pihole/'
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped

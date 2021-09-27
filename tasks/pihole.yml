@@ -1,24 +1,22 @@
 ---
 
-- name: pihole docker deploy
-  community.docker.docker_container:
-    name: pihole
-    image: pihole/pihole:latest
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
-    volumes:
-      - "./etc-pihole/:/etc/pihole/"
-      - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
-    env: 
-      TZ: "{{ timezone }}"
-      WEBPASSWORD: "{{ password }}"
-      ServerIP: "{{ ansible_facts['default_ipv4']['address'] }}"
-    dns_servers:
-      - 127.0.0.1
-      - 1.1.1.1
-    restart_policy: unless-stopped
-    network_mode: host
+- name: Create Pi-hole folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/pi-hole"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Copy Pi-hole docker-compose template to Pi.
+  ansible.builtin.template:
+    src: config/pihole-compose.yml.j2
+    dest: "{{ config_dir }}/pi-hole/docker-compose.yml"
+    mode: '0640'
+  become: false
+
+- name: Install pi-hole
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/pi-hole/"
+    build: false
+    restarted: true
+  become: false
