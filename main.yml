@@ -18,3 +18,7 @@
 
     - name: Install Docker
       import_tasks: tasks/docker.yml
+    
+    - name: Deploy pihole
+      import_tasks: tasks/pihole.yml
+      
