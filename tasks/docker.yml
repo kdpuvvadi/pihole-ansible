@@ -33,8 +33,11 @@
     name: docker
     state: present
 
-- name: adding existing user '{{ ansible_user }}' to group sudo
+- name: adding user '{{ ansible_user }}' to group sudo
   user:
     name: '{{ ansible_user }}'
     groups: docker
     append: yes
+
+- name: Reset connection
+  meta: reset_connection
