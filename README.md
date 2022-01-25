@@ -1,6 +1,6 @@
 # pihole ansible playbook
 
-[![lint](https://github.com/kdpuvvadi/pihole-ansible/actions/workflows/lint.yml/badge.svg)](https://github.com/kdpuvvadi/pihole-ansible/actions/workflows/lint.yml)
+[![lint](https://github.com/kdpuvvadi/pihole-ansible/actions/workflows/ci.yml/badge.svg)](https://github.com/kdpuvvadi/pihole-ansible/actions/workflows/ci.yml)
 
 ## Setup Ansible
 
