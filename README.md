@@ -30,4 +30,4 @@ After installation, run `docker logs pihole | grep random` to view the password 
 Pi-hole uses following ports to work proeprly. Make sure to open the ports inside your network to work properly. 
 
 * 53 - tcp/udp (DNS)
-* 80/443 - tcp (web interface)
+* 90/9943 - tcp (web interface)
